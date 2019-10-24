@@ -1,0 +1,22 @@
+version: "2.0"
+services:
+ flaskapp:
+  build: ./flaskapp
+  image: user/flaskapp
+  networks:
+   - app
+ nginx:
+  build: ./nginx
+  image: user/nginx
+  ports:
+   - 8080:80
+  networks:
+   - app
+  depends_on:
+   - flaskapp
+ redis-svr:
+  image: redis:latest
+  networks:
+   - app
+networks:
+ app:
